@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>InstaCheck — Instagram Fake Account Detector</title>
+  <meta name="description" content="Detect whether an Instagram account is fake or real using AI-powered analysis trained on 785+ real-world profiles."/>
+  <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Hero -->
+    <header>
+      <div class="logo-badge"><span class="dot"></span>AI-Powered Detection</div>
+      <h1>Instagram Fake<br/>Account Detector</h1>
+      <p>Paste any Instagram username or profile link. Our trained classifier will analyse it in milliseconds.</p>
+    </header>
+
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat"><div class="stat-num">785</div><div class="stat-label">Training Samples</div></div>
+      <div class="stat"><div class="stat-num">12</div><div class="stat-label">Features Analysed</div></div>
+      <div class="stat"><div class="stat-num">~92%</div><div class="stat-label">Model Accuracy</div></div>
+    </div>
+
+    <!-- Input Card -->
+    <div class="card">
+      <div class="card-title">🔍 Analyse Account</div>
+
+      <div class="input-group">
+        <div class="input-wrap">
+          <span class="input-icon">@</span>
+          <input type="text" id="usernameInput"
+            placeholder="username  or  instagram.com/username"
+            autocomplete="off" spellcheck="false"/>
+        </div>
+        <button id="analyzeBtn">Analyse →</button>
+      </div>
+
+      <!-- Advanced options toggle -->
+      <div class="advanced-toggle" id="advToggle">
+        <span>Advanced Options</span>
+        <span class="toggle-arrow">▾</span>
+      </div>
+
+      <div class="advanced-panel" id="advPanel">
+        <div class="adv-grid">
+          <!-- Follower ratio -->
+          <div class="adv-item">
+            <label>Follower Ratio <small>(edge_followed_by)</small></label>
+            <div class="range-wrap">
+              <input type="range" id="rFollowers" min="0" max="1" step="0.001" value="0.1"/>
+              <span class="range-val" id="rFollowersVal">0.10</span>
+            </div>
+          </div>
+          <!-- Following ratio -->
+          <div class="adv-item">
+            <label>Following Ratio <small>(edge_follow)</small></label>
+            <div class="range-wrap">
+              <input type="range" id="rFollowing" min="0" max="1" step="0.001" value="0.4"/>
+              <span class="range-val" id="rFollowingVal">0.40</span>
+            </div>
+          </div>
+          <!-- Full name length -->
+          <div class="adv-item">
+            <label>Full Name Length (chars)</label>
+            <div class="range-wrap">
+              <input type="range" id="rFNLen" min="0" max="40" step="1" value="8"/>
+              <span class="range-val" id="rFNLenVal">8</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkboxes-grid">
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkFNNum"/>
+            <span class="cb-box"></span> Full name has number
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkPrivate"/>
+            <span class="cb-box"></span> Private account
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkNewJoin"/>
+            <span class="cb-box"></span> Joined recently
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkChannel"/>
+            <span class="cb-box"></span> Has channel
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkBusiness"/>
+            <span class="cb-box"></span> Business account
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkGuides"/>
+            <span class="cb-box"></span> Has guides
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="chkExtURL"/>
+            <span class="cb-box"></span> Has external URL
+          </label>
+        </div>
+      </div>
+
+      <div class="notice">
+        <span class="notice-icon">⚡</span>
+        <span>The model extracts <strong>username length</strong> and <strong>number presence</strong> automatically. For higher accuracy, fill in the advanced options — these reflect real Instagram profile fields.</span>
+      </div>
+    </div>
+
+    <!-- Result Card -->
+    <div class="card" id="resultCard">
+      <div class="card-title">📊 Analysis Result</div>
+
+      <div class="verdict-row">
+        <!-- Confidence ring -->
+        <div class="ring-wrap">
+          <svg viewBox="0 0 130 130">
+            <circle class="ring-bg" cx="65" cy="65" r="55"/>
+            <circle class="ring-fill" id="ringFill" cx="65" cy="65" r="55"/>
+          </svg>
+          <div class="ring-label">
+            <span class="ring-pct" id="ringPct">0%</span>
+            <span class="ring-text">Fake Risk</span>
+          </div>
+        </div>
+
+        <!-- Verdict text -->
+        <div class="verdict-info">
+          <div class="verdict-badge" id="verdictBadge">— —</div>
+          <div class="verdict-username" id="verdictUsername">@username</div>
+          <div class="verdict-desc" id="verdictDesc">Run an analysis to see results here.</div>
+        </div>
+      </div>
+
+      <!-- Feature breakdown -->
+      <div class="breakdown">
+        <div class="breakdown-title">Feature Breakdown</div>
+        <div class="feature-bars" id="featureBars"></div>
+      </div>
+    </div>
+
+    <!-- History Card -->
+    <div class="card" id="historyCard">
+      <div class="card-title">🕑 Recent Checks</div>
+      <div class="history-list" id="historyList"></div>
+    </div>
+
+    <footer>
+      Built with <span>♥</span> · Trained on 785 Instagram profiles · InstaCheck 2025
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
